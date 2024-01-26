@@ -1,31 +1,26 @@
 import { Router } from 'express';
-import {
-  createUserController,
-  deleteUserController,
-  getUserByIdController,
-  getUsersController,
-  updateUserController
-} from '../controllers/users.controllers';
+import UserController from '../controllers/users.controllers';
 import {
   validateUser
 } from '../utils/validators/users.validators';
 
 // New Router instance
 const router = Router();
+const controller = UserController;
 
 // Users routes
-router.get('/', getUsersController);
-router.get('/:id', getUserByIdController);
+router.get('/', controller.all);
+router.get('/:id', controller.getById);
 router.post(
   '/', // path
   validateUser, // middleware
-  createUserController // controller
+  controller.create // controller
 );
 router.put(
   '/:id', // path
   validateUser, // middleware
-  updateUserController // controller
+  controller.update // controller
 );
-router.delete('/:id', deleteUserController);
+router.delete('/:id', controller.delete);
 
 export default router;

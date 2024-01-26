@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import db from '../utils/database/mongo.conn';
 
 export interface User {

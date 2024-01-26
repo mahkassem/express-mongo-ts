@@ -9,7 +9,7 @@ import Joi, {
 } from 'joi';
 
 export const userSchema = Joi.object({
-  id: Joi.number().integer().required(),
+  id: Joi.number(),
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required().length(8),

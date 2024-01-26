@@ -2,51 +2,69 @@ import { Request, Response } from 'express';
 import {
   User,
   getUsers,
-  getUserById,
+  getUser,
   createUser,
   updateUser,
   deleteUser
 } from '../models/users.models';
+import { Handler } from '../utils/decorators/handler.decorators';
 
-export const getUsersController = (req: Request, res: Response): void => {
-  const users: User[] = getUsers();
-  res.status(200).json({ users });
-};
+export default class UserController {
+  @Handler
+  public static async all(
+    req: Request, res: Response
+  ): Promise<void> {
+    const users: User[] = await getUsers();
+    res.status(200).json({ users });
+  };
 
-export const getUserByIdController = (req: Request, res: Response): void => {
-  const id: number = parseInt(req.params.id, 10);
-  const user: User | undefined = getUserById(id);
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({ message: 'User not found' });
-  }
-};
+  @Handler
+  public static async getById(
+    req: Request, res: Response
+  ): Promise<void> {
+    const id: number = parseInt(req.params.id, 10);
+    const user: User | null = await getUser(id);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  };
 
-export const createUserController = (req: Request, res: Response): void => {
-  const user: User = req.body;
-  createUser(user);
-  res.status(201).json({
-    message: 'User created',
-    user,
-  });
-};
+  @Handler
+  public static async create(
+    req: Request, res: Response
+  ): Promise<void> {
+    const user: User = req.body;
+    await createUser(user);
+    res.status(201).json({
+      message: 'User created',
+      user,
+    });
+  };
 
-export const updateUserController = (req: Request, res: Response): void => {
-  const id: number = parseInt(req.params.id, 10);
-  const userUpdate: User = req.body;
-  userUpdate.id = id;
-  updateUser(userUpdate);
-  res.status(200).json({
-    message: 'User updated',
-    user: userUpdate,
-  });
-};
+  @Handler
+  public static async update(
+    req: Request, res: Response
+  ): Promise<void> {
+    const id: number = parseInt(req.params.id, 10);
+    const userUpdate: User = req.body;
+    userUpdate.id = id;
+    await updateUser(userUpdate);
+    res.status(200).json({
+      message: 'User updated',
+      user: userUpdate,
+    });
+  };
 
-export const deleteUserController = (req: Request, res: Response): void => {
-  const id: number = parseInt(req.params.id, 10);
-  deleteUser(id);
-  res.status(200).json({
-    message: `User ${id} deleted`,
-  });
-};
+  @Handler
+  public static async delete(
+    req: Request, res: Response
+  ): Promise<void> {
+    const id: number = parseInt(req.params.id, 10);
+    await deleteUser(id);
+    res.status(200).json({
+      message: `User ${id} deleted`,
+    });
+  };
+}

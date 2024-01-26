@@ -1,8 +1,8 @@
-# Express TS Starter
+# Express Mongo TS Starter
 
 ## Description
 
-This is a starter project for Express with Typescript. It includes a basic setup for a REST API.
+This is a starter project for Express, Mongo and Typescript. It includes a basic setup for a REST API.
 
 ## Installation
 
