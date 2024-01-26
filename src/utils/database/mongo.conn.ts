@@ -12,14 +12,9 @@ const MONGO_DB = process.env.MONGO_DB || '';
 const client = new MongoClient(MONGO_URI);
 
 // MongoDB connection
-let conn;
-
-try {
-  conn = client.connect();
+client.connect().then(() => {
   console.log('Connected to MongoDB');
-} catch (error) {
-  console.log(error);
-}
+}).catch(err => console.log(err));
 
 // Set Database
 const db = client.db(MONGO_DB);

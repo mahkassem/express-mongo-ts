@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import db from '../utils/database/mongo.conn';
 
 export interface User {
@@ -18,7 +18,7 @@ export const getUsers = async (): Promise<User[]> => {
   return users;
 };
 
-export const getUser = async (id: number): Promise<User | null> => {
+export const getUserById = async (id: number): Promise<User | null> => {
   const user = await db
     .collection<User>(collection)
     .findOne({ id });
