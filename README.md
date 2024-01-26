@@ -12,6 +12,8 @@ npm install
 
 ## Environment variables
 
+Create or rename the `.env.example` file to `.env` and fill in the values.
+
 | Variable | Description |
 | --- | --- |
 | APP_ENV | Environment to run the app in: default is `dev` |
