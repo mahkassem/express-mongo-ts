@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "rootDir": "./build",
+  "clearMocks": true,
+  "collectCoverage": true,
+  "coverageProvider": "v8"
+}

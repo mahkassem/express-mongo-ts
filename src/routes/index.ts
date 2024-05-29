@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import homeRouter from './home.routes';
-import usersRouter from './users.routes';
+import { Request, Response, Router } from 'express';
+import bookRouter from './books.routes';
 
-// Create a new Router instance
 const router = Router();
 
-// Mount the routers
-router.use('/', homeRouter);
-router.use('/users', usersRouter);
+// Health check route
+router.use('/health', (req: Request, res: Response) => res.sendStatus(200));
+
+// Book routes
+router.use('/books', bookRouter);
 
 export default router;
